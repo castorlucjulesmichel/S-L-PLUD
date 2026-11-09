@@ -172,3 +172,21 @@
  .screen-heading{margin-bottom:14px}
  .screen-heading h2{font-size:20px}
 }
+
+/* Sèvis Bank: twa gwo bouton ki ouvri panèl pa yo. */
+.bank-services{margin-top:18px}
+.bank-service-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.bank-service-button{display:flex;align-items:center;gap:12px;min-width:0;padding:17px 15px;border:1px solid #d9e6dc;border-radius:14px;background:#fff;text-align:left;box-shadow:0 5px 16px #0a43220a;color:#174333;cursor:pointer;transition:transform .16s,border-color .16s,background .16s}
+.bank-service-button:active{transform:scale(.985)}
+.bank-service-button.active{border:2px solid #b88724;background:linear-gradient(130deg,#fff8e8,#f2e5c7);box-shadow:0 7px 20px #b887241c}
+.bank-service-icon{width:46px;height:46px;flex:0 0 46px;display:grid;place-items:center;border-radius:13px;background:#dcefe4;font-size:24px}
+.savings-icon{background:#e4d9f4}.loan-icon{background:#dcecf6}
+.bank-service-copy{flex:1;min-width:0}.bank-service-copy b,.bank-service-copy small{display:block}
+.bank-service-copy b{font:800 14px Manrope;color:#06452f}
+.bank-service-copy small{margin-top:4px;font-size:9px;color:#718077}
+.bank-service-arrow{font-size:25px;color:#a17a2b}
+.bank-service-panel{margin-top:14px;padding:22px 20px;border:1px solid #e4dfd1;border-left:4px solid #b88724;border-radius:14px;background:linear-gradient(120deg,#fffdf7,#f5ecd8)}
+.bank-service-panel[hidden]{display:none!important}
+.bank-service-panel h3{margin:6px 0;color:#06452f;font:800 21px Manrope}
+.bank-service-panel p{margin:0;max-width:680px;color:#64746a;font-size:11px;line-height:1.8}
+@media(max-width:560px){.bank-service-grid{grid-template-columns:1fr;gap:9px}.bank-service-button{padding:13px}.bank-service-icon{width:42px;height:42px;flex-basis:42px}.bank-service-panel{padding:18px 15px}}
