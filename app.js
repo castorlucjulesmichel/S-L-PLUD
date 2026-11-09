@@ -30,10 +30,18 @@ const depositAmountField=document.querySelector("#depositAmountField");
 const depositAmount=document.querySelector("#depositAmount");
 function syncDepositField(){
  const show=mandatoryDeposit?.value==="Wi";
- if(depositAmountField)depositAmountField.hidden=!show;
- if(depositAmount)depositAmount.required=Boolean(show);
+ if(depositAmountField){
+  depositAmountField.hidden=!show;
+  depositAmountField.style.display=show?"flex":"none";
+  depositAmountField.setAttribute("aria-hidden",String(!show));
+ }
+ if(depositAmount){
+  depositAmount.required=Boolean(show);
+  if(!show)depositAmount.value="";
+ }
 }
 mandatoryDeposit?.addEventListener("change",syncDepositField);
+mandatoryDeposit?.addEventListener("input",syncDepositField);
 syncDepositField();
 const moneyFormat=new Intl.NumberFormat("fr-HT",{maximumFractionDigits:2});
 
