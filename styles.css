@@ -79,3 +79,31 @@
  .stat-card:nth-child(3){background:#ece3f8}
  .stat-card:nth-child(4){background:#e1eff8}
 }
+
+
+/* Distinguish the actual card surfaces, not only their top borders */
+.stat-card:nth-child(1){background:#f2e4c5}
+.stat-card:nth-child(2){background:#d8eee2}
+.stat-card:nth-child(3){background:#e4d9f4}
+.stat-card:nth-child(4){background:#d8eaf5}
+.chart-card{background:#f5ecd8}
+.quick-card{background:#dcefe4}
+.group-create-card{background:#f3e8ce}
+#groups{background:#dcefeb}
+#goals{background:#e8def5}
+.transactions{background:#deedf6}
+.security-strip{background:#dcefe3}
+.stat-card .stat-icon{background:rgba(255,255,255,.72)}
+.card-heading .period-pill{background:rgba(255,255,255,.72)}
+.quick-card .quick-action{border-bottom-color:rgba(10,65,46,.12)}
+.group-create-card .field input,
+.group-create-card .field select,
+.group-create-card .field textarea{background:#fffdf8}
+#groups .quick-action,
+#goals .quick-action{border-bottom-color:rgba(10,65,46,.12)}
+@media(max-width:560px){
+ .stat-card:nth-child(1){background:#f2e4c5}
+ .stat-card:nth-child(2){background:#d8eee2}
+ .stat-card:nth-child(3){background:#e4d9f4}
+ .stat-card:nth-child(4){background:#d8eaf5}
+}
