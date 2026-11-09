@@ -125,3 +125,11 @@
 .quick-card .quick-action b{
   color:#06452f;
 }
+
+
+/* Form subsection heading and conditional deposit amount */
+.form-section-title{grid-column:1/-1;margin:5px 0 -2px;padding-top:5px}
+.form-section-title h4{margin:0;color:#173f31;font:800 17px Georgia,serif}
+#depositAmountField[hidden]{display:none!important}
+#depositAmountField{animation:depositReveal .18s ease-out}
+@keyframes depositReveal{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
