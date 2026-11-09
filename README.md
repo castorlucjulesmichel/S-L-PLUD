@@ -22,3 +22,15 @@ Sa a se yon pwototip frontend. Chif yo se valè demonstrasyon, pa done finansye 
 2. Mete enskripsyon, koneksyon, verifikasyon idantite ak wòl manm/admin.
 3. Bati fonksyon gwoup SÒL, ekonomi ak istorik.
 4. Entegre peman atravè founisè otorize, ak verifikasyon ak tès sekirite.
+
+
+## Règ gwoup SÒL PLUS
+
+- Kantite manm: 2 rive 100.
+- Kontribisyon maksimòm: 20,000 HTG pa jou, 30,000 HTG pa semèn, 50,000 HTG pa mwa.
+- Dire maksimòm: 50 semèn pou gwoup chak semèn; 60 mwa (5 ane) pou gwoup chak mwa.
+- Komisyon sèvis: 12% sou depo ak 12% sou montan PAYROLL.
+- Depo nèt = montan depo brit × 88%.
+- PAYROLL nèt = montan PAYROLL brit × 88%.
+
+Kalkil sa yo se règ aplikasyon an. Tout tranzaksyon reyèl dwe verifye ankò sou sèvè sekirize a; koòdone GitHub Pages la pa trete ni kenbe lajan.
