@@ -190,3 +190,22 @@
 .bank-service-panel h3{margin:6px 0;color:#06452f;font:800 21px Manrope}
 .bank-service-panel p{margin:0;max-width:680px;color:#64746a;font-size:11px;line-height:1.8}
 @media(max-width:560px){.bank-service-grid{grid-template-columns:1fr;gap:9px}.bank-service-button{padding:13px}.bank-service-icon{width:42px;height:42px;flex-basis:42px}.bank-service-panel{padding:18px 15px}}
+
+
+/* Fòm entèaktif pou SÒL, Épargne ak Prè */
+.service-form{display:grid;gap:15px;margin-top:18px;max-width:850px}
+.service-form .form-grid{gap:13px}
+.service-form .primary-btn{justify-self:start;margin-top:2px}
+.service-calculation,.loan-guarantee{padding:14px 16px;border-radius:11px;background:#e4f1e8;border:1px solid #c9e2d1;color:#17553c;font-size:10px;line-height:1.7}
+.loan-guarantee{display:grid;gap:4px;background:#f5ead0;border-color:#e8d7ad;color:#74551c}
+.loan-guarantee span{font-size:9px;font-weight:800;letter-spacing:.7px;text-transform:uppercase}
+.loan-guarantee strong{font:800 24px Manrope;color:#06452f}
+.loan-guarantee small{font-size:9px;color:#786b50}
+.service-link-button{justify-self:start;border:0;background:transparent;color:#176b4d;font-size:10px;font-weight:800;text-decoration:underline;padding:5px 0}
+.service-form .form-result{margin-top:0}
+.service-form .field input,.service-form .field select{background:#fff}
+@media(max-width:560px){
+ .service-form .form-grid{grid-template-columns:1fr}
+ .service-form .primary-btn{width:100%}
+ .service-link-button{justify-self:center}
+}
