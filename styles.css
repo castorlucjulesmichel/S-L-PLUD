@@ -146,3 +146,13 @@
  .dock-item.active .dock-icon{color:#123b2b}
 }
 @media(max-width:380px){.mobile-dock{left:6px;right:6px;padding:7px 4px}.dock-item small{font-size:8px}.dock-icon{font-size:17px}}
+
+/* Profile destination for the bottom app navigation */
+.profile-card{display:flex;align-items:center;gap:14px;margin-top:14px;padding:17px 19px;border-left:4px solid #8872c5;background:linear-gradient(110deg,#fff,#f5f1fc)}
+.profile-avatar{width:48px;height:48px;flex:0 0 48px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(145deg,#d9c9f1,#8b70bd);color:#fff;font:800 15px Manrope;box-shadow:0 5px 14px #6742a522}
+.profile-copy{flex:1;min-width:0}
+.profile-copy h3{font:800 14px Manrope;color:var(--green);margin:4px 0}
+.profile-copy p{font-size:9px;color:#596c60;margin:0 0 4px}
+.profile-copy small{font-size:8px;line-height:1.5;color:#8a948e}
+.profile-arrow{font-size:24px;color:#8872c5}
+@media(max-width:780px){.mobile-dock{grid-template-columns:repeat(5,minmax(0,1fr))}.dock-item small{font-size:8px}}
