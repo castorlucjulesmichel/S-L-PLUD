@@ -100,6 +100,36 @@ bankServices.innerHTML=`
    <button class="primary-btn" type="submit">Soumèt demann pou verifikasyon <b>→</b></button>
    <div class="form-result" id="loanResult" role="status" aria-live="polite"></div>
   </form>
+ </div>
+ <div class="bank-service-panel" data-bank-panel="deposit" hidden>
+  <span class="eyebrow">ANTRE LAJAN SOU KONT OU</span><h3>Fè yon depo</h3>
+  <p>Chwazi fason ou vle fè depo a. Depo manyèl rete annatant jiskaske administratè verifye li; depo otomatik mande konfimasyon founisè a.</p>
+  <form class="service-form" id="depositForm">
+   <div class="form-grid">
+    <label class="field"><span>MONTAN DEPO A (HTG)</span><input name="amount" type="number" min="1" step="1" required placeholder="Antre montan an"></label>
+    <label class="field"><span>METÒD DEPO</span><select name="method"><option value="manual">Manyèl — voye prèv</option><option value="automatic">Otomatik — founisè peman</option></select></label>
+   </div>
+   <label class="field"><span>REFERANS PEMAN OSWA NIMEWO TRANZAKSYON</span><input name="reference" maxlength="120" placeholder="Nimewo referans (si genyen)"></label>
+   <label class="field"><span>PRÈV / NÒT POU ADMINISTRATÈ</span><textarea name="proof" rows="3" placeholder="Mete detay oswa referans prèv peman an"></textarea></label>
+   <div class="service-calculation">Sekirite: pa gen balans k ap ogmante anvan verifikasyon manyèl oswa konfimasyon founisè a.</div>
+   <button class="primary-btn" type="submit">Soumèt demann depo <b>→</b></button>
+   <div class="form-result" id="depositResult" role="status" aria-live="polite"></div>
+  </form>
+ </div>
+ <div class="bank-service-panel" data-bank-panel="withdraw" hidden>
+  <span class="eyebrow">RETRÈ SOU KONT OU</span><h3>Mande yon retrè</h3>
+  <p>Tou de metòd retrè yo disponib nan plan an. <strong>Tout retrè mande apwobasyon administratè anvan peman fèt.</strong></p>
+  <form class="service-form" id="withdrawForm">
+   <div class="form-grid">
+    <label class="field"><span>MONTAN RETRÈ A (HTG)</span><input name="amount" type="number" min="1" step="1" required placeholder="Antre montan an"></label>
+    <label class="field"><span>METÒD RETRÈ</span><select name="method"><option value="manual">Manyèl — ajan peye</option><option value="automatic">Otomatik — founisè peman</option></select></label>
+    <label class="field"><span>DESTINASYON / NIMEWO KONT</span><input name="destination" maxlength="120" required placeholder="Kont oswa nimewo pou resevwa lajan"></label>
+    <label class="field"><span>NON BENEFISYÈ</span><input name="beneficiary" maxlength="100" required placeholder="Non moun k ap resevwa a"></label>
+   </div>
+   <div class="service-calculation withdrawal-warning"><strong>Apwobasyon obligatwa:</strong> demann lan ap rete annatant; montan an dwe rezève pandan verifikasyon. Okenn peman pa fèt anvan admin apwouve li.</div>
+   <button class="primary-btn" type="submit">Voye demann retrè <b>→</b></button>
+   <div class="form-result" id="withdrawResult" role="status" aria-live="polite"></div>
+  </form>
  </div>`;
 views.bank.append(bankServices);
 bankServices.querySelectorAll("[data-bank-service]").forEach(button=>button.addEventListener("click",()=>{
@@ -148,6 +178,15 @@ byId("loanForm")?.addEventListener("submit",event=>{
  const d=Object.fromEntries(new FormData(form).entries()),amount=Number(d.amount),guarantee=amount*.25;
  const result=byId("loanResult");result.innerHTML="<strong>Rezime demann prè a pare pou verifikasyon.</strong> Montan mande: "+fmtHTG(amount)+" · Garanti 25%: "+fmtHTG(guarantee)+" · Dire swete: "+d.duration+" mwa · Ranbousman: "+d.frequency+" · Objektif: "+d.purpose+". Pa gen to enterè ki fikse nan règ nou genyen yo; demann lan poko apwouve ni anrejistre.";result.classList.add("show");
 });
+
+function showLocalRequest(formId,resultId,message){
+ byId(formId)?.addEventListener("submit",event=>{
+  event.preventDefault();const form=event.currentTarget;if(!form.reportValidity())return;
+  const result=byId(resultId);if(result){result.textContent=message;result.classList.add("show");}
+ });
+}
+showLocalRequest("depositForm","depositResult","Demann depo a prepare nan demonstrasyon sa a sèlman. Li poko voye bay admin ni anrejistre sou sèvè; balans lan pa chanje.");
+showLocalRequest("withdrawForm","withdrawResult","Demann retrè a prepare nan demonstrasyon sa a sèlman. Li poko voye bay admin ni founisè peman; okenn lajan pa soti sou kont lan.");
 
 views.groups.append(groupsCard);
 views["create-group"].append(createCard);
