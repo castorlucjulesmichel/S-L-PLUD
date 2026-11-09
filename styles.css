@@ -256,3 +256,9 @@
 .admin-nav-item i{color:#f2d99e!important}
 .super-nav-tag{margin-left:auto;font-size:7px;letter-spacing:.7px;color:#f2d99e;background:#d8ad5525;border:1px solid #d8ad5555;padding:3px 5px;border-radius:5px}
 .admin-nav-item:hover,.admin-nav-item.active{background:#d8ad5520!important}
+
+
+.install-app-btn{border:1px solid #d8ad55;background:#fff8e8;color:#073f30;border-radius:9px;padding:9px 12px;font-size:10px;font-weight:800;white-space:nowrap}
+.install-app-btn:hover{background:#f2e4bd}
+.install-app-btn:disabled{opacity:.7}
+@media(max-width:700px){.install-app-btn{padding:8px 9px;font-size:9px}.top-right{gap:6px}}
