@@ -133,3 +133,16 @@
 #depositAmountField[hidden]{display:none!important}
 #depositAmountField{animation:depositReveal .18s ease-out}
 @keyframes depositReveal{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+
+/* Mobile taskbar: navigation stays visible while the page scrolls */
+.mobile-dock{display:none}
+@media(max-width:780px){
+ body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
+ .mobile-dock{position:fixed;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));align-items:center;gap:3px;left:10px;right:10px;bottom:calc(9px + env(safe-area-inset-bottom));z-index:50;padding:8px 7px;background:rgba(5,48,36,.97);border:1px solid #ffffff24;border-radius:18px;box-shadow:0 10px 32px rgba(3,35,25,.28);backdrop-filter:blur(16px)}
+ .dock-item{min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:5px 2px;border-radius:12px;color:#c4d7cd;transition:background .18s,color .18s}
+ .dock-icon{font-size:19px;line-height:1.15;color:#ead7a7}
+ .dock-item small{font:700 9px 'DM Sans',sans-serif;white-space:nowrap}
+ .dock-item.active{background:linear-gradient(145deg,#e9c879,#bd8b2e);color:#123b2b;box-shadow:0 4px 12px #0002}
+ .dock-item.active .dock-icon{color:#123b2b}
+}
+@media(max-width:380px){.mobile-dock{left:6px;right:6px;padding:7px 4px}.dock-item small{font-size:8px}.dock-icon{font-size:17px}}
