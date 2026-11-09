@@ -165,3 +165,18 @@ model AuditLog {
   @@index([entityType, entityId, createdAt])
   @@index([actorUserId, createdAt])
 }
+
+model OutboxEvent {
+  id          String   @id @default(cuid())
+  eventKey    String   @unique
+  eventType   String
+  aggregateId String
+  payload     Json
+  attempts    Int      @default(0)
+  availableAt DateTime @default(now())
+  publishedAt DateTime?
+  createdAt   DateTime @default(now())
+
+  @@index([publishedAt, availableAt])
+  @@index([aggregateId, createdAt])
+}
