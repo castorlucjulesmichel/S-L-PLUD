@@ -209,3 +209,23 @@
  .service-form .primary-btn{width:100%}
  .service-link-button{justify-self:center}
 }
+
+
+/* SÒL PLUS SUPER — bank deposit and withdrawal screens */
+.bank-service-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:16px 0}
+.bank-service-button{display:flex;align-items:center;gap:9px;min-width:0;padding:13px 11px;border:1px solid #e3e9e2;border-radius:12px;background:#fff;text-align:left;color:#294438;transition:.18s}
+.bank-service-button:hover,.bank-service-button.active{border-color:#b88724;background:#fbf5e8;box-shadow:0 5px 15px #b8872418}
+.bank-service-icon{width:35px;height:35px;flex:0 0 35px;display:grid;place-items:center;border-radius:10px;background:#dcefe4;color:#07583d;font-size:18px}
+.bank-service-icon.savings-icon{background:#f7ebd0}.bank-service-icon.loan-icon{background:#e6def5}.bank-service-icon.deposit-icon{background:#dcefe4}.bank-service-icon.withdraw-icon{background:#dcecf7}
+.bank-service-copy{flex:1;min-width:0}.bank-service-copy b,.bank-service-copy small{display:block}.bank-service-copy b{font-size:10px;color:#06452f}.bank-service-copy small{font-size:8px;color:#839087;margin-top:3px;line-height:1.4}
+.bank-service-arrow{font-size:18px;color:#a17c37}
+.bank-service-panel{padding:19px;background:#fff;border:1px solid #e3e9e2;border-radius:13px;box-shadow:0 9px 28px rgba(20,55,39,.055)}
+.bank-service-panel[hidden]{display:none!important}
+.bank-service-panel h3{font:800 17px Manrope;color:#06452f;margin:7px 0}
+.bank-service-panel>p{font-size:10px;line-height:1.7;color:#7b8980;max-width:720px;margin:0 0 17px}
+.service-form{display:grid;gap:14px}
+.service-calculation{padding:12px 14px;border:1px solid #e8dfc8;border-radius:9px;background:#fbf7ec;color:#705a2a;font-size:9px;line-height:1.7}
+.withdrawal-warning{background:#fff5ed;border-color:#f0d5bf;color:#8a4b24}
+.service-form .form-result{display:block}
+@media(max-width:700px){.bank-service-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.bank-service-button{padding:11px 9px}.bank-service-panel{padding:15px}}
+@media(max-width:390px){.bank-service-grid{grid-template-columns:1fr 1fr}.bank-service-copy small{font-size:7px}}
