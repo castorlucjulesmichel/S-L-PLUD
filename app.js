@@ -13,7 +13,8 @@ const routeTitles={
  activity:["Aktivite","Istwa mouvman kont ou"],
  profile:["Pwofil mwen","Enfòmasyon sou kont manm ou"],
  security:["Sekirite","Pwoteksyon kont ak konfyans"],
- help:["Sant asistans","Kontakte ekip SÒL PLUS la"]
+ help:["Sant asistans","Kontakte ekip SÒL PLUS la"],
+ admin:["Sant notifikasyon admin","Swiv epi verifye tout mouvman finansye yo"]
 };
 const views={};
 function makeView(key){
@@ -28,7 +29,7 @@ function makeView(key){
  heading.querySelector("p").textContent=routeTitles[key][1];
  panel.append(heading); content.append(panel); views[key]=panel; return panel;
 }
-const routes=["home","bank","groups","create-group","goals","activity","profile","security","help"];
+const routes=["home","bank","groups","create-group","goals","activity","profile","security","help","admin"];
 routes.forEach(makeView);
 const byId=id=>document.getElementById(id);
 const hero=content.querySelector(".hero");
@@ -199,7 +200,33 @@ views.security.append(security);
 const helpCard=document.createElement("article");
 helpCard.className="card help-screen-card";
 helpCard.innerHTML='<div class="card-heading"><div><span class="eyebrow">NOU LA POU OU</span><h3>Bezwen asistans?</h3><p>Voye kesyon ou bay ekip SÒL PLUS la.</p></div><span class="stat-icon green">?</span></div><a class="primary-btn help-mail" href="mailto:contact@solplus.app">Kontakte sipò →</a>';
+
 views.help.append(helpCard);
+
+/* Sant admin pou alèt tranzaksyon — koòdone a pare; done reyèl mande API + kont admin. */
+const adminPanel=document.createElement("section");
+adminPanel.className="admin-notification-center";
+adminPanel.innerHTML=`
+ <div class="admin-alert-banner"><span>✦</span><div><b>OBLIGASYON SIVEYANS SUPER</b><p>Chak depo, retrè, transfè, kontribisyon SÒL, PAYROLL, mouvman ekonomi, prè, frè ak komisyon dwe pwodwi yon alèt pou administratè.</p></div></div>
+ <div class="admin-notification-stats">
+  <article><small>NOTIFIKASYON POKO LI</small><strong>—</strong></article>
+  <article><small>TRANZAKSYON POU VERIFYE</small><strong>—</strong></article>
+  <article><small>ALÈT JODI A</small><strong>—</strong></article>
+ </div>
+ <div class="card admin-queue-card">
+  <div class="card-heading"><div><span class="eyebrow">SIVEYANS FINANSYE</span><h3>Lis notifikasyon tranzaksyon</h3><p>Chak alèt dwe montre referans, manm, montan, metòd, estati ak aksyon pou revizyon.</p></div><span class="stat-icon gold">♧</span></div>
+  <div class="admin-empty"><span>♧</span><b>Pa gen done sèvè ki konekte</b><p>Lè API a konekte, alèt yo ap parèt isit la otomatikman. Pa gen okenn tranzaksyon reyèl k ap parèt nan demonstrasyon sa a.</p></div>
+ </div>
+ <div class="card admin-rules-card"><h3>Règ apwobasyon retrè</h3><ul><li>Retrè manyèl: admin apwouve anvan ajan peye.</li><li>Retrè otomatik: admin apwouve anvan API founisè a voye peman.</li><li>Montan an rete rezève pandan demann lan annatant.</li><li>Pa make retrè fini san prèv ajan oswa konfimasyon founisè.</li></ul></div>`;
+views.admin.append(adminPanel);
+
+/* Aksè vizib pou admin nan tèt aplikasyon an. */
+const adminShortcut=document.createElement("button");
+adminShortcut.type="button";adminShortcut.className="admin-shortcut";
+adminShortcut.innerHTML="♧ <span>Notifikasyon admin</span>";
+adminShortcut.addEventListener("click",()=>activateView("admin"));
+document.querySelector(".top-right")?.insertBefore(adminShortcut,document.querySelector(".user-menu"));
+
 function activateView(key){
  if(!views[key])key="home";
  Object.entries(views).forEach(([name,panel])=>panel.hidden=name!==key);
