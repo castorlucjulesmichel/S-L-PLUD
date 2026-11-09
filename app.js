@@ -111,6 +111,7 @@ bankServices.querySelectorAll("[data-bank-service]").forEach(button=>button.addE
 }));
 
 // Fòm sèvis Bank yo: kalkil lokal pou demonstrasyon, san tranzaksyon reyèl.
+const moneyFormat=new Intl.NumberFormat("fr-HT",{maximumFractionDigits:2});
 const fmtHTG=value=>moneyFormat.format(value)+" HTG";
 const solAmount=byId("solAmount"),solFrequency=byId("solFrequency"),solFee=byId("solFee");
 function updateSolFee(){
@@ -222,8 +223,6 @@ function syncDepositField(){
 mandatoryDeposit?.addEventListener("change",syncDepositField);
 mandatoryDeposit?.addEventListener("input",syncDepositField);
 syncDepositField();
-const moneyFormat=new Intl.NumberFormat("fr-HT",{maximumFractionDigits:2});
-
 function syncGroupLimits(){
  if(!rules||!frequency||!contribution)return;
  const type=frequency.value;
