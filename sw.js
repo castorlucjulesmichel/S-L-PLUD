@@ -1,9 +1,9 @@
-const CACHE_NAME = "sol-plus-pwa-v1";
+const CACHE_NAME = "sol-plus-pwa-logo-v2";
 const APP_SHELL = [
   "./",
   "./index.html",
-  "./styles.css?v=pwa-20261109-01",
-  "./app.js?v=pwa-20261109-01",
+  "./styles.css?v=logo-20261109-02",
+  "./app.js?v=logo-20261109-02",
   "./business-rules.js",
   "./manifest.webmanifest",
   "./icons/sol-plus.svg"
