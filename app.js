@@ -38,7 +38,20 @@ function syncGroupLimits(){
    durationUnit.textContent=type==="weekly"?"semèn (maks. 50)":"mwa (maks. 60)"; }
  }
 }
-frequency?.addEventListener("change",syncGroupLimits); syncGroupLimits();
+frequency?.addEventListener("change",syncGroupLimits);
+syncGroupLimits();
+
+// Chan yo suiv limit yo pandan moun ap ranpli fòm nan.
+function keepWithinLimit(input){
+ if(!input)return;
+ input.addEventListener("input",()=>{
+  const max=Number(input.max);
+  if(input.value!==""&&Number.isFinite(max)&&Number(input.value)>max)input.value=String(max);
+ });
+}
+keepWithinLimit(contribution);
+keepWithinLimit(members);
+keepWithinLimit(duration);
 
 groupForm?.addEventListener("submit",event=>{
  event.preventDefault(); if(!groupForm.reportValidity())return;
