@@ -72,6 +72,7 @@ model User {
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
   wallets      Wallet[]
+  transactions FinancialTransaction[] @relation("TransactionMember")
   notifications AdminNotification[]
   auditLogs    AuditLog[] @relation("AuditActor")
 }
@@ -98,6 +99,7 @@ model FinancialTransaction {
   amountMinor     BigInt
   currency        String            @default("HTG")
   memberId        String
+  member          User              @relation("TransactionMember", fields: [memberId], references: [id])
   description     String?
   providerRef     String?           @unique
   idempotencyKey  String?           @unique
