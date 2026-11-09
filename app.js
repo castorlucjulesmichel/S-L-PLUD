@@ -55,6 +55,8 @@ bankServices.innerHTML=`
   <button type="button" class="bank-service-button active" data-bank-service="sol" aria-pressed="true"><span class="bank-service-icon">🤝</span><span class="bank-service-copy"><b>SÒL</b><small>Gwoup solidarite</small></span><span class="bank-service-arrow">›</span></button>
   <button type="button" class="bank-service-button" data-bank-service="savings" aria-pressed="false"><span class="bank-service-icon savings-icon">🐖</span><span class="bank-service-copy"><b>Épargne</b><small>Ekonomi pèsonèl</small></span><span class="bank-service-arrow">›</span></button>
   <button type="button" class="bank-service-button" data-bank-service="loan" aria-pressed="false"><span class="bank-service-icon loan-icon">💳</span><span class="bank-service-copy"><b>Prè</b><small>Demann finansman</small></span><span class="bank-service-arrow">›</span></button>
+  <button type="button" class="bank-service-button" data-bank-service="deposit" aria-pressed="false"><span class="bank-service-icon deposit-icon">＋</span><span class="bank-service-copy"><b>Depo</b><small>Manyèl oswa otomatik</small></span><span class="bank-service-arrow">›</span></button>
+  <button type="button" class="bank-service-button" data-bank-service="withdraw" aria-pressed="false"><span class="bank-service-icon withdraw-icon">↗</span><span class="bank-service-copy"><b>Retrè</b><small>Apwobasyon admin</small></span><span class="bank-service-arrow">›</span></button>
  </div>
  <div class="bank-service-panel" data-bank-panel="sol">
   <span class="eyebrow">SÈVIS SOLIDARITE</span><h3>Patisipe nan yon gwoup SÒL</h3>
