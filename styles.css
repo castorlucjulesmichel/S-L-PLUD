@@ -37,3 +37,45 @@
 .duration-control input{flex:1;min-width:0}
 .duration-control span{font-size:10px;color:#8a968e;white-space:nowrap}
 @media(max-width:560px){.stat-card:nth-child(1){background:#fffaf0}.stat-card:nth-child(2){background:#f2faf6}.stat-card:nth-child(3){background:#f8f5fd}.stat-card:nth-child(4){background:#f3f8fc}}
+
+
+/* Stronger, high-contrast module colors */
+:root{
+  --green:#06452f;
+  --green2:#08734f;
+  --gold:#b88724;
+  --gold-light:#f0d58e;
+}
+.stat-card:nth-child(1){border-top:4px solid #b88724;background:linear-gradient(145deg,#fff 48%,#f6e8c8)}
+.stat-card:nth-child(2){border-top:4px solid #087a58;background:linear-gradient(145deg,#fff 48%,#d9f0e5)}
+.stat-card:nth-child(3){border-top:4px solid #6742a5;background:linear-gradient(145deg,#fff 48%,#e8ddf8)}
+.stat-card:nth-child(4){border-top:4px solid #176b9d;background:linear-gradient(145deg,#fff 48%,#dcecf7)}
+.stat-icon{background:#f0dfb8;color:#805b13}
+.stat-icon.green{background:#cce9da;color:#07583d}
+.stat-icon.gold{background:#f3e2b9;color:#805b13}
+.stat-icon.blue{background:#d5e8f5;color:#145b87}
+.chart-card{border-top:4px solid #b88724;background:linear-gradient(145deg,#fff 70%,#f8edda)}
+.quick-card{border-top:4px solid #087a58;background:linear-gradient(145deg,#fff 70%,#e0f2e9)}
+.group-create-card{border-top:4px solid #b88724;background:linear-gradient(145deg,#fff 62%,#f5e6c4)}
+.group-create-card .card-heading .stat-icon{background:#efdba9;color:#78520b}
+#groups{border-top:4px solid #087f79;background:linear-gradient(145deg,#fff 62%,#d7efec)}
+#groups .empty-art{background:#c8e9e4;color:#075e59}
+#goals{border-top:4px solid #6742a5;background:linear-gradient(145deg,#fff 62%,#e5d9f5)}
+#goals .goal-ring{border-color:#cbb9e9;color:#56318f}
+.transactions{border-top:4px solid #176b9d;background:linear-gradient(145deg,#fff 68%,#dcecf7)}
+.transactions th{background:#d9eaf5;color:#174f72}
+.security-strip{border-left:5px solid #087a58;background:#dcefe4;border-color:#b9ddc9}
+.security-strip .secure-icon{background:#bfe2ce;color:#07583d}
+.quick-icon{background:#cce9da;color:#07583d}
+.quick-icon.gold-bg{background:#f0dfb8;color:#805b13}
+.goal-ring{background:#f4edfc}
+.field>span{color:#344c40}
+.eyebrow{color:#80631f}
+.text-link{color:#805b13}
+.chart-note .legend-dot{background:#b88724}
+@media(max-width:560px){
+ .stat-card:nth-child(1){background:#f7edda}
+ .stat-card:nth-child(2){background:#e0f2e9}
+ .stat-card:nth-child(3){background:#ece3f8}
+ .stat-card:nth-child(4){background:#e1eff8}
+}
