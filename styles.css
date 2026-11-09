@@ -250,3 +250,9 @@
 .admin-rules-card h3{font:800 13px Manrope;color:var(--green);margin:0 0 10px}
 .admin-rules-card ul{padding-left:18px;margin:0;color:#68786e;font-size:9px;line-height:2}
 @media(max-width:780px){.admin-shortcut{padding:8px;font-size:0}.admin-shortcut span{font-size:8px}.admin-notification-stats{gap:7px}.admin-notification-stats article{padding:11px}.admin-notification-stats small{font-size:7px}}
+
+
+.admin-nav-item{background:#ffffff0b!important;border:1px solid #d8ad5544;color:#fff!important}
+.admin-nav-item i{color:#f2d99e!important}
+.super-nav-tag{margin-left:auto;font-size:7px;letter-spacing:.7px;color:#f2d99e;background:#d8ad5525;border:1px solid #d8ad5555;padding:3px 5px;border-radius:5px}
+.admin-nav-item:hover,.admin-nav-item.active{background:#d8ad5520!important}
