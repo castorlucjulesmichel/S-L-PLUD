@@ -107,3 +107,21 @@
  .stat-card:nth-child(3){background:#e4d9f4}
  .stat-card:nth-child(4){background:#d8eaf5}
 }
+
+
+/* Background fills requested at the arrow locations — no border-only changes */
+.hero{
+  background:linear-gradient(125deg,#064c3a 0%,#087c5a 52%,#0b9369 100%);
+}
+.quick-card{
+  background:#e0f1e7;
+}
+.quick-card .quick-action{
+  background:transparent;
+}
+.quick-card .quick-icon{
+  background:#c4e5d3;
+}
+.quick-card .quick-action b{
+  color:#06452f;
+}
