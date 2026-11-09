@@ -1,10 +1,86 @@
 const menuButton=document.querySelector("#menuToggle");
 const sidebar=document.querySelector("#sidebar");
 menuButton?.addEventListener("click",()=>sidebar?.classList.toggle("open"));
-document.querySelectorAll(".nav-item").forEach(link=>link.addEventListener("click",()=>{
- document.querySelectorAll(".nav-item").forEach(item=>item.classList.remove("active"));
- link.classList.add("active"); sidebar?.classList.remove("open");
+
+/* Navigasyon aplikasyon: chak bouton chanje ekran, li pa fè paj la defile. */
+const content=document.querySelector(".content");
+const routeTitles={
+ home:["Apèsi jeneral","Byenveni nan SÒL PLUS"],
+ bank:["Bous mwen","Rezime finansye kont ou"],
+ groups:["Gwoup SÒL","Gwoup ou yo ak aktivite solidarite"],
+ "create-group":["Kreye gwoup SÒL","Mete kondisyon gwoup ou a"],
+ goals:["Objektif ekonomi","Planifye sa ou vle reyalize"],
+ activity:["Aktivite","Istwa mouvman kont ou"],
+ profile:["Pwofil mwen","Enfòmasyon sou kont manm ou"],
+ security:["Sekirite","Pwoteksyon kont ak konfyans"],
+ help:["Sant asistans","Kontakte ekip SÒL PLUS la"]
+};
+const views={};
+function makeView(key){
+ const panel=document.createElement("section");
+ panel.className="app-view";
+ panel.dataset.screen=key;
+ panel.hidden=true;
+ const heading=document.createElement("div");
+ heading.className="screen-heading";
+ heading.innerHTML='<span class="eyebrow">SÒL PLUS • ESPAS MANM</span><h2></h2><p></p>';
+ heading.querySelector("h2").textContent=routeTitles[key][0];
+ heading.querySelector("p").textContent=routeTitles[key][1];
+ panel.append(heading); content.append(panel); views[key]=panel; return panel;
+}
+const routes=["home","bank","groups","create-group","goals","activity","profile","security","help"];
+routes.forEach(makeView);
+const byId=id=>document.getElementById(id);
+const hero=content.querySelector(".hero");
+const sectionHead=content.querySelector(".section-head");
+const stats=byId("wallet");
+const mainGrid=content.querySelector(".main-grid");
+const createCard=byId("create-group");
+const bottomGrid=content.querySelector(".bottom-grid");
+const groupsCard=byId("groups");
+const goalsCard=byId("goals");
+const transactions=byId("transactions");
+const profile=byId("profile");
+const security=byId("security");
+const footer=content.querySelector("footer");
+views.home.append(hero,mainGrid,footer);
+views.bank.append(sectionHead,stats);
+views.groups.append(groupsCard);
+views["create-group"].append(createCard);
+views.goals.append(goalsCard);
+views.activity.append(transactions);
+views.profile.append(profile);
+views.security.append(security);
+const helpCard=document.createElement("article");
+helpCard.className="card help-screen-card";
+helpCard.innerHTML='<div class="card-heading"><div><span class="eyebrow">NOU LA POU OU</span><h3>Bezwen asistans?</h3><p>Voye kesyon ou bay ekip SÒL PLUS la.</p></div><span class="stat-icon green">?</span></div><a class="primary-btn help-mail" href="mailto:contact@solplus.app">Kontakte sipò →</a>';
+views.help.append(helpCard);
+function activateView(key){
+ if(!views[key])key="home";
+ Object.entries(views).forEach(([name,panel])=>panel.hidden=name!==key);
+ document.querySelectorAll(".nav-item,.dock-item").forEach(link=>{
+  const active=link.dataset.view===key;
+  link.classList.toggle("active",active);
+  if(active)link.setAttribute("aria-current","page"); else link.removeAttribute("aria-current");
+ });
+ const title=routeTitles[key][0];
+ const h1=document.querySelector(".topbar h1");
+ const crumb=document.querySelector(".crumb");
+ if(h1)h1.textContent=title;
+ if(crumb)crumb.innerHTML="SÒL PLUS <span>/</span> "+title;
+ sidebar?.classList.remove("open");
+ window.scrollTo({top:0,behavior:"instant"});
+ document.body.dataset.view=key;
+}
+document.querySelectorAll("[data-view]").forEach(link=>link.addEventListener("click",event=>{
+ event.preventDefault(); activateView(link.dataset.view);
 }));
+document.querySelectorAll('a[href^="#"]:not([data-view])').forEach(link=>{
+ const id=link.getAttribute("href").slice(1);
+ const map={"dashboard":"home","wallet":"bank","groups":"groups","create-group":"create-group","goals":"goals","transactions":"activity","profile":"profile","security":"security","help":"help"};
+ if(map[id]){link.addEventListener("click",event=>{event.preventDefault();activateView(map[id]);});}
+});
+activateView("home");
 const toast=document.querySelector("#toast"); let toastTimer;
 document.querySelectorAll("[data-notice]").forEach(button=>button.addEventListener("click",()=>{
  if(!toast)return; toast.textContent=button.dataset.notice; toast.classList.add("show");
@@ -90,19 +166,3 @@ groupForm?.addEventListener("submit",event=>{
   groupResult.classList.add("show");
  }
 });
-/* Mobile taskbar navigation and active section state */
-const dockItems=[...document.querySelectorAll(".dock-item")];
-dockItems.forEach(item=>item.addEventListener("click",()=>{
- dockItems.forEach(link=>{link.classList.remove("active");link.removeAttribute("aria-current");});
- item.classList.add("active");item.setAttribute("aria-current","page");
-}));
-if("IntersectionObserver" in window&&dockItems.length){
- const dockSections=dockItems.map(item=>document.querySelector(item.getAttribute("href"))).filter(Boolean);
- const sectionObserver=new IntersectionObserver(entries=>{
-  const visible=entries.filter(entry=>entry.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
-  if(!visible)return;
-  const active=dockItems.find(item=>item.getAttribute("href")==="#"+visible.target.id);
-  if(active){dockItems.forEach(link=>{link.classList.remove("active");link.removeAttribute("aria-current");});active.classList.add("active");active.setAttribute("aria-current","page");}
- },{rootMargin:"-18% 0px -62% 0px",threshold:[0,.1,.3]});
- dockSections.forEach(section=>sectionObserver.observe(section));
-}
