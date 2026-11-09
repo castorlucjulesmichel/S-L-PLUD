@@ -69,6 +69,17 @@ export async function postBalancedLedgerTransaction(
     throw new Error("LEDGER_TRANSACTION_CURRENCY_MISMATCH");
   }
 
+  const wallets = await db.wallet.findMany({
+    where: { id: { in: walletIds } },
+    select: { id: true, currency: true }
+  });
+  if (wallets.length !== walletIds.length) {
+    throw new Error("LEDGER_WALLET_NOT_FOUND");
+  }
+  if (wallets.some((wallet) => wallet.currency !== transaction.currency)) {
+    throw new Error("LEDGER_WALLET_CURRENCY_MISMATCH");
+  }
+
   const existing = await db.ledgerEntry.findMany({
     where: { transactionId },
     select: { walletId: true, amountMinor: true, currency: true, entryType: true }
