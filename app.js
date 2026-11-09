@@ -90,3 +90,19 @@ groupForm?.addEventListener("submit",event=>{
   groupResult.classList.add("show");
  }
 });
+/* Mobile taskbar navigation and active section state */
+const dockItems=[...document.querySelectorAll(".dock-item")];
+dockItems.forEach(item=>item.addEventListener("click",()=>{
+ dockItems.forEach(link=>{link.classList.remove("active");link.removeAttribute("aria-current");});
+ item.classList.add("active");item.setAttribute("aria-current","page");
+}));
+if("IntersectionObserver" in window&&dockItems.length){
+ const dockSections=dockItems.map(item=>document.querySelector(item.getAttribute("href"))).filter(Boolean);
+ const sectionObserver=new IntersectionObserver(entries=>{
+  const visible=entries.filter(entry=>entry.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
+  if(!visible)return;
+  const active=dockItems.find(item=>item.getAttribute("href")==="#"+visible.target.id);
+  if(active){dockItems.forEach(link=>{link.classList.remove("active");link.removeAttribute("aria-current");});active.classList.add("active");active.setAttribute("aria-current","page");}
+ },{rootMargin:"-18% 0px -62% 0px",threshold:[0,.1,.3]});
+ dockSections.forEach(section=>sectionObserver.observe(section));
+}
