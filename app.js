@@ -56,9 +56,51 @@ bankServices.innerHTML=`
   <button type="button" class="bank-service-button" data-bank-service="savings" aria-pressed="false"><span class="bank-service-icon savings-icon">🐖</span><span class="bank-service-copy"><b>Épargne</b><small>Ekonomi pèsonèl</small></span><span class="bank-service-arrow">›</span></button>
   <button type="button" class="bank-service-button" data-bank-service="loan" aria-pressed="false"><span class="bank-service-icon loan-icon">💳</span><span class="bank-service-copy"><b>Prè</b><small>Demann finansman</small></span><span class="bank-service-arrow">›</span></button>
  </div>
- <div class="bank-service-panel" data-bank-panel="sol"><span class="eyebrow">SÈVIS SOLIDARITE</span><h3>SÒL</h3><p>Patisipe nan yon gwoup SÒL, suiv kontribisyon ou epi resevwa tou pa ou dapre règ gwoup la.</p></div>
- <div class="bank-service-panel" data-bank-panel="savings" hidden><span class="eyebrow">EKONOMI PÈSONÈL</span><h3>Épargne</h3><p>Mete lajan sou kote epi suiv pwogrè ekonomi pèsonèl ou.</p></div>
- <div class="bank-service-panel" data-bank-panel="loan" hidden><span class="eyebrow">SOLISYON FINANSMAN</span><h3>Prè</h3><p>Eksplore sèvis prè a. Garanti ki prevwa a se 25% montan prè a.</p></div>`;
+ <div class="bank-service-panel" data-bank-panel="sol">
+  <span class="eyebrow">SÈVIS SOLIDARITE</span><h3>Patisipe nan yon gwoup SÒL</h3>
+  <p>Antre enfòmasyon gwoup ou vle patisipe ladan l. Limit kontribisyon yo respekte règ SÒL PLUS yo.</p>
+  <form class="service-form" id="solJoinForm">
+   <label class="field"><span>NON GWOUP LA OSWA KÒD ENVITASYON</span><input name="group" required maxlength="80" placeholder="Ekri non oswa kòd gwoup la"></label>
+   <div class="form-grid">
+    <label class="field"><span>KONTRIBISYON (HTG)</span><input id="solAmount" name="amount" type="number" min="1" step="1" required placeholder="Egzanp: 1000"></label>
+    <label class="field"><span>FREKANS</span><select id="solFrequency" name="frequency"><option value="daily">Chak jou</option><option value="weekly">Chak semèn</option><option value="monthly" selected>Chak mwa</option></select></label>
+   </div>
+   <div class="service-calculation" id="solFee" aria-live="polite">Frè sèvis: 12% · Montan nèt la ap parèt lè ou antre kontribisyon an.</div>
+   <button class="primary-btn" type="submit">Kontinye <b>→</b></button>
+   <button class="service-link-button" type="button" id="openCreateGroup">Mwen vle kreye pwòp gwoup mwen</button>
+   <div class="form-result" id="solResult" role="status" aria-live="polite"></div>
+  </form>
+ </div>
+ <div class="bank-service-panel" data-bank-panel="savings" hidden>
+  <span class="eyebrow">EKONOMI PÈSONÈL</span><h3>Kreye yon plan Épargne</h3>
+  <p>Chwazi objektif ou ak kantite ou ta renmen mete sou kote. Ou ka ajiste plan an anvan li aktive.</p>
+  <form class="service-form" id="savingsForm">
+   <label class="field"><span>NON OBJEKTIF LA</span><input name="goal" required maxlength="80" placeholder="Egzanp: Lajan lekòl, kay, ijans"></label>
+   <div class="form-grid">
+    <label class="field"><span>OBJEKTIF TOTAL (HTG)</span><input name="target" type="number" min="1" step="1" required placeholder="Konbyen ou vle rasanble?"></label>
+    <label class="field"><span>KONTRIBISYON (HTG)</span><input name="amount" type="number" min="1" step="1" required placeholder="Konbyen w ap mete chak fwa?"></label>
+    <label class="field"><span>FREKANS</span><select name="frequency"><option value="daily">Chak jou</option><option value="weekly">Chak semèn</option><option value="monthly" selected>Chak mwa</option></select></label>
+    <label class="field"><span>DAT OU VIZE</span><input name="targetDate" type="date" required></label>
+   </div>
+   <button class="primary-btn" type="submit">Prepare plan Épargne <b>→</b></button>
+   <div class="form-result" id="savingsResult" role="status" aria-live="polite"></div>
+  </form>
+ </div>
+ <div class="bank-service-panel" data-bank-panel="loan" hidden>
+  <span class="eyebrow">SOLISYON FINANSMAN</span><h3>Fè yon demann prè</h3>
+  <p>Garanti obligatwa a reprezante 25% montan prè ou mande a. Kalkil la ap fèt otomatikman anba a.</p>
+  <form class="service-form" id="loanForm">
+   <div class="form-grid">
+    <label class="field"><span>MONTAN PRÈ A (HTG)</span><input id="loanAmount" name="amount" type="number" min="1" step="1" required placeholder="Konbyen ou bezwen?"></label>
+    <label class="field"><span>DIRE OU TA RENMEN (MWA)</span><input name="duration" type="number" min="1" step="1" required placeholder="Egzanp: 6"></label>
+    <label class="field"><span>FREKANS RANBOUSMAN</span><select name="frequency"><option value="weekly">Chak semèn</option><option value="monthly" selected>Chak mwa</option></select></label>
+    <label class="field"><span>OBJEKTIF PRÈ A</span><select name="purpose" required><option value="">Chwazi yon rezon</option><option>Biznis</option><option>Edikasyon</option><option>Sante</option><option>Lojman</option><option>Lòt bezwen</option></select></label>
+   </div>
+   <div class="loan-guarantee" id="loanGuarantee" aria-live="polite"><span>Garanti 25% obligatwa</span><strong>0 HTG</strong><small>Antre montan prè a pou kalkile garanti a.</small></div>
+   <button class="primary-btn" type="submit">Soumèt demann pou verifikasyon <b>→</b></button>
+   <div class="form-result" id="loanResult" role="status" aria-live="polite"></div>
+  </form>
+ </div>`;
 views.bank.append(bankServices);
 bankServices.querySelectorAll("[data-bank-service]").forEach(button=>button.addEventListener("click",()=>{
  const selected=button.dataset.bankService;
@@ -67,6 +109,44 @@ bankServices.querySelectorAll("[data-bank-service]").forEach(button=>button.addE
  });
  bankServices.querySelectorAll("[data-bank-panel]").forEach(panel=>panel.hidden=panel.dataset.bankPanel!==selected);
 }));
+
+// Fòm sèvis Bank yo: kalkil lokal pou demonstrasyon, san tranzaksyon reyèl.
+const fmtHTG=value=>moneyFormat.format(value)+" HTG";
+const solAmount=byId("solAmount"),solFrequency=byId("solFrequency"),solFee=byId("solFee");
+function updateSolFee(){
+ const amount=Number(solAmount?.value)||0;
+ if(solFee)solFee.textContent=amount>0?"Frè sèvis 12%: "+fmtHTG(amount*.12)+" · Montan nèt: "+fmtHTG(amount*.88):"Frè sèvis: 12% · Antre kontribisyon an pou wè montan nèt la.";
+}
+solAmount?.addEventListener("input",updateSolFee); solFrequency?.addEventListener("change",()=>{
+ if(!solAmount)return;
+ const limits={daily:20000,weekly:30000,monthly:50000}; solAmount.max=String(limits[solFrequency.value]);
+ if(Number(solAmount.value)>limits[solFrequency.value])solAmount.value=String(limits[solFrequency.value]);
+ updateSolFee();
+});
+solFrequency?.dispatchEvent(new Event("change"));
+byId("solJoinForm")?.addEventListener("submit",event=>{
+ event.preventDefault(); const form=event.currentTarget; if(!form.reportValidity())return;
+ const amount=Number(solAmount.value),limit={daily:20000,weekly:30000,monthly:50000}[solFrequency.value];
+ if(amount>limit){solAmount.setCustomValidity("Limit pou frekans sa a depase.");solAmount.reportValidity();solAmount.setCustomValidity("");return;}
+ const result=byId("solResult"); result.innerHTML="<strong>Demann SÒL la pare pou verifikasyon.</strong> Kontribisyon brit: "+fmtHTG(amount)+" · Frè 12%: "+fmtHTG(amount*.12)+" · Montan nèt: "+fmtHTG(amount*.88)+". Demann lan poko anrejistre sou sèvè.";result.classList.add("show");
+});
+byId("openCreateGroup")?.addEventListener("click",()=>activateView("create-group"));
+byId("savingsForm")?.addEventListener("submit",event=>{
+ event.preventDefault();const form=event.currentTarget;if(!form.reportValidity())return;
+ const d=Object.fromEntries(new FormData(form).entries());
+ const result=byId("savingsResult");result.innerHTML="<strong>Plan Épargne a pare pou verifikasyon.</strong> Objektif: "+d.goal+" · Total: "+fmtHTG(Number(d.target))+" · Chak peryòd: "+fmtHTG(Number(d.amount))+" · Frekans: "+d.frequency+" · Dat vize: "+d.targetDate+". Plan an poko aktive ni anrejistre.";result.classList.add("show");
+});
+const loanAmount=byId("loanAmount"),loanGuarantee=byId("loanGuarantee");
+function updateLoanGuarantee(){
+ const amount=Number(loanAmount?.value)||0,guarantee=amount*.25;
+ if(loanGuarantee){loanGuarantee.querySelector("strong").textContent=fmtHTG(guarantee);loanGuarantee.querySelector("small").textContent=amount>0?"Garanti pou mete sou kote: 25% montan prè a.":"Antre montan prè a pou kalkile garanti a.";}
+}
+loanAmount?.addEventListener("input",updateLoanGuarantee);
+byId("loanForm")?.addEventListener("submit",event=>{
+ event.preventDefault();const form=event.currentTarget;if(!form.reportValidity())return;
+ const d=Object.fromEntries(new FormData(form).entries()),amount=Number(d.amount),guarantee=amount*.25;
+ const result=byId("loanResult");result.innerHTML="<strong>Rezime demann prè a pare pou verifikasyon.</strong> Montan mande: "+fmtHTG(amount)+" · Garanti 25%: "+fmtHTG(guarantee)+" · Dire swete: "+d.duration+" mwa · Ranbousman: "+d.frequency+" · Objektif: "+d.purpose+". Pa gen to enterè ki fikse nan règ nou genyen yo; demann lan poko apwouve ni anrejistre.";result.classList.add("show");
+});
 
 views.groups.append(groupsCard);
 views["create-group"].append(createCard);
