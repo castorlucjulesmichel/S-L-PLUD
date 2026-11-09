@@ -1,0 +1,165 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserStatus {
+  PENDING
+  ACTIVE
+  SUSPENDED
+  CLOSED
+}
+
+enum UserRole {
+  MEMBER
+  AGENT
+  FINANCE_OFFICER
+  ADMIN
+  SUPER_ADMIN
+}
+
+enum TransactionType {
+  DEPOSIT
+  WITHDRAWAL
+  TRANSFER
+  SOL_CONTRIBUTION
+  SOL_PAYROLL
+  SAVINGS_DEPOSIT
+  SAVINGS_WITHDRAWAL
+  LOAN_DISBURSEMENT
+  LOAN_REPAYMENT
+  FEE
+  COMMISSION
+  ADJUSTMENT
+}
+
+enum TransactionMethod {
+  MANUAL
+  AUTOMATIC
+  INTERNAL
+}
+
+enum TransactionStatus {
+  SUBMITTED
+  UNDER_REVIEW
+  APPROVED
+  PROCESSING
+  COMPLETED
+  REJECTED
+  CANCELLED
+  FAILED
+  REVERSED
+}
+
+enum NotificationStatus {
+  UNREAD
+  READ
+  ARCHIVED
+}
+
+model User {
+  id           String     @id @default(cuid())
+  email        String?    @unique
+  phone        String?    @unique
+  passwordHash String
+  fullName     String
+  status       UserStatus @default(PENDING)
+  roles        UserRole[] @default([MEMBER])
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  wallets      Wallet[]
+  notifications AdminNotification[]
+  auditLogs    AuditLog[] @relation("AuditActor")
+}
+
+model Wallet {
+  id          String   @id @default(cuid())
+  userId      String
+  currency    String   @default("HTG")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  user        User     @relation(fields: [userId], references: [id])
+  ledgerEntries LedgerEntry[]
+
+  @@unique([userId, currency])
+  @@index([userId])
+}
+
+model FinancialTransaction {
+  id              String            @id @default(cuid())
+  reference       String            @unique
+  type            TransactionType
+  method          TransactionMethod
+  status          TransactionStatus @default(SUBMITTED)
+  amountMinor     BigInt
+  currency        String            @default("HTG")
+  memberId        String
+  description     String?
+  providerRef     String?           @unique
+  idempotencyKey  String?           @unique
+  submittedAt     DateTime          @default(now())
+  reviewedAt      DateTime?
+  completedAt     DateTime?
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  ledgerEntries   LedgerEntry[]
+  notifications   AdminNotification[]
+  auditLogs       AuditLog[]
+
+  @@index([memberId, createdAt])
+  @@index([status, createdAt])
+  @@index([type, createdAt])
+}
+
+model LedgerEntry {
+  id            String                @id @default(cuid())
+  transactionId String
+  walletId      String
+  amountMinor   BigInt
+  currency      String                @default("HTG")
+  entryType     String
+  createdAt     DateTime              @default(now())
+  transaction   FinancialTransaction @relation(fields: [transactionId], references: [id])
+  wallet        Wallet                @relation(fields: [walletId], references: [id])
+
+  @@index([walletId, createdAt])
+  @@index([transactionId])
+}
+
+model AdminNotification {
+  id              String             @id @default(cuid())
+  transactionId   String?
+  recipientUserId String
+  title           String
+  message         String
+  status          NotificationStatus @default(UNREAD)
+  eventKey        String             @unique
+  payload         Json?
+  createdAt       DateTime           @default(now())
+  readAt          DateTime?
+  transaction     FinancialTransaction? @relation(fields: [transactionId], references: [id])
+  recipient       User               @relation(fields: [recipientUserId], references: [id])
+
+  @@index([recipientUserId, status, createdAt])
+}
+
+model AuditLog {
+  id            String                @id @default(cuid())
+  actorUserId   String?
+  transactionId String?
+  action        String
+  entityType    String
+  entityId      String
+  metadata      Json?
+  ipAddress     String?
+  createdAt     DateTime              @default(now())
+  actor         User?                 @relation("AuditActor", fields: [actorUserId], references: [id])
+  transaction   FinancialTransaction? @relation(fields: [transactionId], references: [id])
+
+  @@index([entityType, entityId, createdAt])
+  @@index([actorUserId, createdAt])
+}
