@@ -45,7 +45,29 @@ const profile=byId("profile");
 const security=byId("security");
 const footer=content.querySelector("footer");
 views.home.append(hero,mainGrid,footer);
+
 views.bank.append(sectionHead,stats);
+/* Twa sèvis prensipal andedan espas Bank lan. */
+const bankServices=document.createElement("div");
+bankServices.className="bank-services";
+bankServices.innerHTML=`
+ <div class="bank-service-grid" role="group" aria-label="Sèvis bank">
+  <button type="button" class="bank-service-button active" data-bank-service="sol" aria-pressed="true"><span class="bank-service-icon">🤝</span><span class="bank-service-copy"><b>SÒL</b><small>Gwoup solidarite</small></span><span class="bank-service-arrow">›</span></button>
+  <button type="button" class="bank-service-button" data-bank-service="savings" aria-pressed="false"><span class="bank-service-icon savings-icon">🐖</span><span class="bank-service-copy"><b>Épargne</b><small>Ekonomi pèsonèl</small></span><span class="bank-service-arrow">›</span></button>
+  <button type="button" class="bank-service-button" data-bank-service="loan" aria-pressed="false"><span class="bank-service-icon loan-icon">💳</span><span class="bank-service-copy"><b>Prè</b><small>Demann finansman</small></span><span class="bank-service-arrow">›</span></button>
+ </div>
+ <div class="bank-service-panel" data-bank-panel="sol"><span class="eyebrow">SÈVIS SOLIDARITE</span><h3>SÒL</h3><p>Patisipe nan yon gwoup SÒL, suiv kontribisyon ou epi resevwa tou pa ou dapre règ gwoup la.</p></div>
+ <div class="bank-service-panel" data-bank-panel="savings" hidden><span class="eyebrow">EKONOMI PÈSONÈL</span><h3>Épargne</h3><p>Mete lajan sou kote epi suiv pwogrè ekonomi pèsonèl ou.</p></div>
+ <div class="bank-service-panel" data-bank-panel="loan" hidden><span class="eyebrow">SOLISYON FINANSMAN</span><h3>Prè</h3><p>Eksplore sèvis prè a. Garanti ki prevwa a se 25% montan prè a.</p></div>`;
+views.bank.append(bankServices);
+bankServices.querySelectorAll("[data-bank-service]").forEach(button=>button.addEventListener("click",()=>{
+ const selected=button.dataset.bankService;
+ bankServices.querySelectorAll("[data-bank-service]").forEach(item=>{
+  const active=item===button; item.classList.toggle("active",active); item.setAttribute("aria-pressed",String(active));
+ });
+ bankServices.querySelectorAll("[data-bank-panel]").forEach(panel=>panel.hidden=panel.dataset.bankPanel!==selected);
+}));
+
 views.groups.append(groupsCard);
 views["create-group"].append(createCard);
 views.goals.append(goalsCard);
