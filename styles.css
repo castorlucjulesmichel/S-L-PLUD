@@ -156,3 +156,19 @@
 .profile-copy small{font-size:8px;line-height:1.5;color:#8a948e}
 .profile-arrow{font-size:24px;color:#8872c5}
 @media(max-width:780px){.mobile-dock{grid-template-columns:repeat(5,minmax(0,1fr))}.dock-item small{font-size:8px}}
+
+/* Ekran aplikasyon yo: yon sèl espas vizib alafwa, pa navigasyon ak defile. */
+.app-view[hidden]{display:none!important}
+.app-view{display:block;min-height:calc(100vh - 125px)}
+.screen-heading{margin:2px 0 18px;padding:3px 0 14px;border-bottom:1px solid var(--line)}
+.screen-heading h2{font:800 22px Manrope;color:var(--green);margin:6px 0}
+.screen-heading p{font-size:11px;color:var(--muted);margin:0}
+.app-view>.card,.app-view>.group-create-card{margin-top:0}
+.app-view>.stat-grid{margin-top:0}
+.help-screen-card{max-width:620px;border-top:4px solid #087a58;background:#e0f1e7}
+.help-mail{display:inline-flex;margin-top:18px;text-decoration:none}
+@media(max-width:780px){
+ .app-view{min-height:calc(100dvh - 160px)}
+ .screen-heading{margin-bottom:14px}
+ .screen-heading h2{font-size:20px}
+}
