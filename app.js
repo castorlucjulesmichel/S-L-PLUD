@@ -25,6 +25,16 @@ const members=document.querySelector('[name="maxMembers"]');
 const durationField=document.querySelector("#durationField");
 const duration=document.querySelector("#groupDuration");
 const durationUnit=document.querySelector("#durationUnit");
+const mandatoryDeposit=document.querySelector("#mandatoryDeposit");
+const depositAmountField=document.querySelector("#depositAmountField");
+const depositAmount=document.querySelector("#depositAmount");
+function syncDepositField(){
+ const show=mandatoryDeposit?.value==="Wi";
+ if(depositAmountField)depositAmountField.hidden=!show;
+ if(depositAmount)depositAmount.required=Boolean(show);
+}
+mandatoryDeposit?.addEventListener("change",syncDepositField);
+syncDepositField();
 const moneyFormat=new Intl.NumberFormat("fr-HT",{maximumFractionDigits:2});
 
 function syncGroupLimits(){
@@ -63,10 +73,12 @@ groupForm?.addEventListener("submit",event=>{
  const durationMax=data.frequency==="weekly"?rules.maxDuration.weekly:data.frequency==="monthly"?rules.maxDuration.monthly:null;
  if(durationMax&&Number(data.duration)>durationMax){ duration.setCustomValidity("Dire gwoup la depase limit la."); duration.reportValidity(); duration.setCustomValidity(""); return; }
  const net=rules.netDeposit(gross);
+ const depositValue=data.mandatoryDeposit==="Wi"?Number(data.depositAmount):0;
+ if(data.mandatoryDeposit==="Wi"&&(!Number.isFinite(depositValue)||depositValue<=0)){depositAmount?.reportValidity();return;}
  const frequencyLabel={daily:"chak jou",weekly:"chak semèn",monthly:"chak mwa"}[data.frequency];
  const durationText=data.frequency==="daily"?"":" · "+data.duration+" "+(data.frequency==="weekly"?"semèn":"mwa");
  if(groupResult){
-  groupResult.innerHTML="<strong>Rezime gwoup la pare pou verifikasyon.</strong>"+data.groupName+" · "+moneyFormat.format(gross)+" HTG "+frequencyLabel+" · kontribisyon nèt: "+moneyFormat.format(net)+" HTG · "+memberCount+" manm"+durationText+" · "+data.groupType+". Gwoup la poko anrejistre sou yon sèvè.";
+  groupResult.innerHTML="<strong>Rezime gwoup la pare pou verifikasyon.</strong>"+data.groupName+" · "+moneyFormat.format(gross)+" HTG "+frequencyLabel+" · kontribisyon nèt: "+moneyFormat.format(net)+" HTG · "+memberCount+" manm"+durationText+" · "+data.groupType+(data.mandatoryDeposit==="Wi"?" · depo obligatwa: "+moneyFormat.format(depositValue)+" HTG":" · pa gen depo obligatwa")+". Gwoup la poko anrejistre sou yon sèvè.";
   groupResult.classList.add("show");
  }
 });
