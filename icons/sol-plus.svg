@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<rect width="512" height="512" rx="112" fill="#073f30"/>
+<circle cx="256" cy="256" r="188" fill="none" stroke="#d8ad55" stroke-width="12" opacity=".85"/>
+<path d="M154 282c-25-23-49-12-49 10 0 14 11 25 25 38l66 61c16 15 36 23 58 23h19c22 0 42-8 58-23l65-61c14-13 25-24 25-38 0-22-24-33-49-10l-57 48-28-25c-19-17-48-17-67 0l-28 25z" fill="#f3dfa9" stroke="#fff4d5" stroke-width="7" stroke-linejoin="round"/>
+<path d="M256 125c-35 0-63 28-63 63v39c0 20 16 36 36 36h54c20 0 36-16 36-36v-39c0-35-28-63-63-63z" fill="#d8ad55"/>
+<text x="256" y="226" text-anchor="middle" font-family="Arial,sans-serif" font-size="54" font-weight="800" fill="#073f30">S+</text>
+<text x="256" y="463" text-anchor="middle" font-family="Arial,sans-serif" font-size="28" font-weight="800" letter-spacing="4" fill="#f3dfa9">SÒL PLUS</text>
+</svg>
