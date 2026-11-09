@@ -1,0 +1,17 @@
+{
+  "id": "./",
+  "name": "SÒL PLUS SUPER",
+  "short_name": "SÒL PLUS",
+  "description": "Ekonomize. Fè SÒL. Avanse. Ansanm nou pi fò!",
+  "lang": "ht",
+  "start_url": "./?source=pwa",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait-primary",
+  "background_color": "#f4f6f2",
+  "theme_color": "#073f30",
+  "icons": [
+    { "src": "./icons/sol-plus.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
