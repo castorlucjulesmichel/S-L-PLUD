@@ -15,8 +15,8 @@ type DbClient = PrismaClient | Prisma.TransactionClient;
 
 /**
  * Persist an admin notification and an outbox event in the SAME database
- * transaction as the financial operation. A separate worker will deliver
- * push/email/SMS later; those external channels are intentionally not wired yet.
+ * transaction as the financial operation or status change. External
+ * push/email/SMS delivery is handled later by an outbox worker.
  */
 export async function queueAdminTransactionAlert(
   db: DbClient,
@@ -30,7 +30,8 @@ export async function queueAdminTransactionAlert(
     select: { id: true }
   });
 
-  const eventKey = `transaction:${alert.transactionId}:submitted`;
+  const normalizedStatus = alert.status.toUpperCase();
+  const eventKey = `transaction:${alert.transactionId}:status:${normalizedStatus}`;
   const payload = {
     transactionId: alert.transactionId,
     reference: alert.reference,
@@ -39,32 +40,28 @@ export async function queueAdminTransactionAlert(
     method: alert.method,
     amountMinor: alert.amountMinor.toString(),
     currency: alert.currency,
-    status: alert.status
+    status: normalizedStatus
   };
 
   await db.outboxEvent.upsert({
     where: { eventKey },
     create: {
       eventKey,
-      eventType: "FINANCIAL_TRANSACTION_SUBMITTED",
+      eventType: `FINANCIAL_TRANSACTION_STATUS_${normalizedStatus}`,
       aggregateId: alert.transactionId,
       payload
     },
     update: {}
   });
 
-  if (admins.length === 0) {
-    // Keep the outbox event. Operational monitoring must alert if no active
-    // financial administrators are configured.
-    return;
-  }
+  if (admins.length === 0) return;
 
   await db.adminNotification.createMany({
     data: admins.map((admin) => ({
       transactionId: alert.transactionId,
       recipientUserId: admin.id,
-      title: "Nouvo tranzaksyon SÒL PLUS",
-      message: `${alert.transactionType} — ${alert.reference} — ${alert.status}`,
+      title: "Mizajou tranzaksyon SÒL PLUS",
+      message: `${alert.transactionType} — ${alert.reference} — ${normalizedStatus}`,
       eventKey: `${eventKey}:admin:${admin.id}`,
       payload
     })),
