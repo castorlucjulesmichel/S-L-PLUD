@@ -1,12 +1,12 @@
-const CACHE_NAME = "sol-plus-pwa-logo-v2";
+const CACHE_NAME = "sol-plus-pwa-logo-v3";
 const APP_SHELL = [
   "./",
   "./index.html",
-  "./styles.css?v=logo-20261109-02",
-  "./app.js?v=logo-20261109-02",
+  "./styles.css?v=logo-20261109-03",
+  "./app.js?v=logo-20261109-03",
   "./business-rules.js",
   "./manifest.webmanifest",
-  "./icons/sol-plus.svg"
+  "./icons/sol-plus-approved.svg"
 ];
 
 self.addEventListener("install", event => {
