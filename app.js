@@ -39,6 +39,7 @@ const createCard=byId("create-group");
 const bottomGrid=content.querySelector(".bottom-grid");
 const groupsCard=byId("groups");
 const goalsCard=byId("goals");
+bottomGrid?.remove();
 const transactions=byId("transactions");
 const profile=byId("profile");
 const security=byId("security");
@@ -69,7 +70,7 @@ function activateView(key){
  if(h1)h1.textContent=title;
  if(crumb)crumb.innerHTML="SÒL PLUS <span>/</span> "+title;
  sidebar?.classList.remove("open");
- window.scrollTo({top:0,behavior:"instant"});
+ window.scrollTo(0,0);
  document.body.dataset.view=key;
 }
 document.querySelectorAll("[data-view]").forEach(link=>link.addEventListener("click",event=>{
