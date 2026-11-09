@@ -1,3 +1,35 @@
+
+/* PWA: enstalasyon sou Android ak fonksyon offline debaz. */
+let installPromptEvent=null;
+const installButton=document.querySelector("#installAppButton");
+window.addEventListener("beforeinstallprompt", event=>{
+ event.preventDefault();
+ installPromptEvent=event;
+ if(installButton) installButton.hidden=false;
+});
+window.addEventListener("appinstalled",()=>{
+ installPromptEvent=null;
+ if(installButton){installButton.textContent="App enstale";installButton.disabled=true;}
+});
+installButton?.addEventListener("click",async()=>{
+ if(installPromptEvent){
+  installPromptEvent.prompt();
+  await installPromptEvent.userChoice;
+  installPromptEvent=null;
+  return;
+ }
+ const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+ const message=isIOS
+  ?"Sou Safari: peze Pataje, apre sa chwazi Ajoute sou ekran dakèy."
+  :"Nan Chrome: ouvri meni ⋮ a, chwazi Enstale aplikasyon an oswa Ajoute sou ekran dakèy.";
+ const toast=document.querySelector("#toast");
+ if(toast){toast.textContent=message;toast.classList.add("show");}
+ else alert(message);
+});
+if("serviceWorker" in navigator){
+ window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(error=>console.warn("SÒL PLUS offline mode:",error)));
+}
+
 const menuButton=document.querySelector("#menuToggle");
 const sidebar=document.querySelector("#sidebar");
 menuButton?.addEventListener("click",()=>sidebar?.classList.toggle("open"));
