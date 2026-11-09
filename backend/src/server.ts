@@ -1,5 +1,6 @@
 import Fastify from "fastify";
 import helmet from "@fastify/helmet";
+import cors from "@fastify/cors";
 import rateLimit from "@fastify/rate-limit";
 import { z } from "zod";
 import "dotenv/config";
@@ -12,50 +13,60 @@ const envSchema = z.object({
   LOG_LEVEL: z.string().default("info")
 });
 
-const env = envSchema.parse(process.env);
-const app = Fastify({
-  logger: { level: env.LOG_LEVEL },
-  trustProxy: env.NODE_ENV === "production"
-});
+async function start(): Promise<void> {
+  const env = envSchema.parse(process.env);
+  const allowedOrigins = env.CORS_ORIGIN.split(",").map((origin) => origin.trim());
 
-await app.register(helmet);
-await app.register(rateLimit, {
-  max: 100,
-  timeWindow: "1 minute"
-});
-
-app.get("/health", async () => ({
-  status: "ok",
-  service: "sol-plus-api",
-  environment: env.NODE_ENV,
-  timestamp: new Date().toISOString()
-}));
-
-app.get("/api/v1", async () => ({
-  name: "SÒL PLUS API",
-  version: "0.1.0",
-  status: "foundation",
-  message: "API fondasyon an disponib; sèvis finansye yo poko aktive."
-}));
-
-app.setNotFoundHandler(async (_request, reply) => {
-  return reply.code(404).send({
-    error: "NOT_FOUND",
-    message: "Wout sa a pa egziste."
+  const app = Fastify({
+    logger: { level: env.LOG_LEVEL },
+    trustProxy: env.NODE_ENV === "production"
   });
-});
 
-app.setErrorHandler((error, _request, reply) => {
-  app.log.error(error);
-  return reply.code(500).send({
-    error: "INTERNAL_SERVER_ERROR",
-    message: "Yon erè entèn rive."
+  await app.register(helmet);
+  await app.register(cors, {
+    origin: allowedOrigins,
+    credentials: true
   });
-});
+  await app.register(rateLimit, {
+    max: 100,
+    timeWindow: "1 minute"
+  });
 
-try {
-  await app.listen({ host: env.HOST, port: env.PORT });
-} catch (error) {
-  app.log.error(error);
-  process.exit(1);
+  app.get("/health", async () => ({
+    status: "ok",
+    service: "sol-plus-api",
+    environment: env.NODE_ENV,
+    timestamp: new Date().toISOString()
+  }));
+
+  app.get("/api/v1", async () => ({
+    name: "SÒL PLUS API",
+    version: "0.1.0",
+    status: "foundation",
+    message: "API fondasyon an disponib; sèvis finansye yo poko aktive."
+  }));
+
+  app.setNotFoundHandler(async (_request, reply) => {
+    return reply.code(404).send({
+      error: "NOT_FOUND",
+      message: "Wout sa a pa egziste."
+    });
+  });
+
+  app.setErrorHandler((error, _request, reply) => {
+    app.log.error(error);
+    return reply.code(500).send({
+      error: "INTERNAL_SERVER_ERROR",
+      message: "Yon erè entèn rive."
+    });
+  });
+
+  try {
+    await app.listen({ host: env.HOST, port: env.PORT });
+  } catch (error) {
+    app.log.error(error);
+    process.exit(1);
+  }
 }
+
+void start();
