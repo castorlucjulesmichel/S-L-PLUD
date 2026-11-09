@@ -2,8 +2,8 @@ const CACHE_NAME = "sol-plus-pwa-v1";
 const APP_SHELL = [
   "./",
   "./index.html",
-  "./styles.css",
-  "./app.js",
+  "./styles.css?v=pwa-20261109-01",
+  "./app.js?v=pwa-20261109-01",
   "./business-rules.js",
   "./manifest.webmanifest",
   "./icons/sol-plus.svg"
